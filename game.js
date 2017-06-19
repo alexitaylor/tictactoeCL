@@ -52,13 +52,27 @@ function printBoard() {
   );
 }
 
+function rotateBoard(rotatePos, player) {
+  if (rotatePos === '90') {
+   if (board[1] !== '  1 ') {
+     if (board[2] !== '  2 ') {
+       if (board[3] !== '  3 ') {
+         board[9] = board[1];
+       } else {
+         board[8] = board[1];
+       }
+     }
+   }
+  }
+}
+
 function game(player) {
   prompt.start();
 
   prompt.get(['position'], function(err, result) {
     updateBoard(result.position, player);
+    rotateBoard('90');
     console.log('  user move: ' + result.position);
-
     // print new board
     printBoard();
 
