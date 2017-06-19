@@ -36,10 +36,20 @@ function playerWon() {
   } else if (board[1] === board[5] && board[1] === board[9]) {
     return true;
   } else if (board[3] === board[5] && board[3] === board[7]) {
-    return true
+    return true;
   } else {
     return false;
   }
+}
+
+function printBoard() {
+  console.log(
+    board[1] + '|' + board[2] + '|' + board[3]
+    + '\n--------------'
+    + '\n' + board[4] + '|' + board[5] + '|' + board[6]
+    + '\n--------------'
+    + '\n' + board[7] + '|' + board[8] + '|' + board[9]
+  );
 }
 
 function game(player) {
@@ -50,13 +60,7 @@ function game(player) {
     console.log('  user move: ' + result.position);
 
     // print new board
-    console.log(
-      board[1] + '|' + board[2] + '|' + board[3]
-      + '\n--------------'
-      + '\n' + board[4] + '|' + board[5] + '|' + board[6]
-      + '\n--------------'
-      + '\n' + board[7] + '|' + board[8] + '|' + board[9]
-    );
+    printBoard();
 
     if (playerWon()) {
       console.log('Player ' + player + ' Won!!!')
@@ -72,7 +76,7 @@ function game(player) {
   });
 }
 
-console.log( 'Start Game: \n' +
+console.log( 'Start Game, Player X: \n' +
   board[1] + '|' + board[2] + '|' + board[3]
   + '\n--------------'
   + '\n' + board[4] + '|' + board[5] + '|' + board[6]
