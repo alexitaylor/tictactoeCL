@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/alexitaylor/tictactoeCL/issues"
   },
-  "homepage": "https://github.com/alexitaylor/tictactoeCL#readme"
+  "homepage": "https://github.com/alexitaylor/tictactoeCL#readme",
+  "dependencies": {
+    "prompt": "^1.0.0"
+  }
 }
