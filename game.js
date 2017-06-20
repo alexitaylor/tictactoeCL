@@ -62,7 +62,27 @@ function rotateBoard() {
       board[k] = k;
     } else {
       board[k] = oldBoard[oldKey];
-      console.log('something');
+    }
+  });
+}
+
+function gravity() {
+  var oldBoard = Object.assign({}, board);
+
+  _.forEachRight(oldBoard, function(position, k){
+    if (position === 'X' || position === 'O') {
+      var keyBelow = k;
+      if (k >= 4 && k <= 6) {
+        keyBelow = parseInt(k) + 3;
+      } else if (k >= 1 && k <= 3) {
+        keyBelow = parseInt(k) + 6;
+      }
+      if (oldBoard[keyBelow] !== 'X' && oldBoard[keyBelow] !== 'O') {
+        board[keyBelow] = oldBoard[k];
+        board[k] = k;
+      }
+    } else {
+      board[k] = position;
     }
   });
 }
@@ -73,6 +93,7 @@ function game(player) {
   prompt.get(['position'], function(err, result) {
     updateBoard(result.position, player);
     rotateBoard();
+    gravity();
     console.log('  user move: ' + result.position);
     // print new board
     printBoard();
