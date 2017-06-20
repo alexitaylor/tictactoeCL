@@ -67,29 +67,34 @@ function rotateBoard() {
 }
 
 function gravity() {
-  var oldBoard = Object.assign({}, board);
-
-  _.forEachRight(oldBoard, function(position, k){
-    if (position === 'X' || position === 'O') {
+  _.forEachRight(board, function(position, k){
+    if (board[k] === 'X' || board[k] === 'O') {
       var keyBelow = k;
       if (k >= 4 && k <= 6) {
         keyBelow = parseInt(k) + 3;
+        if (board[keyBelow] !== 'X' && board[keyBelow] !== 'O') {
+          board[keyBelow] = board[k];
+          board[k] = k;
+        }
       } else if (k >= 1 && k <= 3) {
         keyBelow = parseInt(k) + 6;
-      }
-      if (oldBoard[keyBelow] !== 'X' && oldBoard[keyBelow] !== 'O') {
-        board[keyBelow] = oldBoard[k];
-        board[k] = k;
+        var keyBelowTwo = parseInt(k) + 3;
+        if (board[keyBelow] !== 'X' && board[keyBelow] !== 'O') {
+          board[keyBelow] = board[k];
+          board[k] = k;
+        } else if (board[keyBelowTwo] !== 'X' && board[keyBelowTwo] !== 'O') {
+          board[keyBelowTwo] = board[k];
+          board[k] = k;
+        }
       }
     } else {
-      board[k] = position;
+      board[k] = k;
     }
   });
 }
 
 function game(player) {
   prompt.start();
-
   prompt.get(['position'], function(err, result) {
     updateBoard(result.position, player);
     rotateBoard();
@@ -108,7 +113,6 @@ function game(player) {
         game('X');
       }
     }
-
   });
 }
 
