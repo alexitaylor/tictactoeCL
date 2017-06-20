@@ -3,21 +3,22 @@
  */
 
 var prompt = require('prompt');
+var _ = require('lodash');
 
 var board = {
-  1: '  1 ',
-  2: '  2 ',
-  3: '  3 ',
-  4: '  4 ',
-  5: '  5 ',
-  6: '  6 ',
-  7: '  7 ',
-  8: '  8 ',
-  9: '  9 ',
+  1: '1',
+  2: '2',
+  3: '3',
+  4: '4',
+  5: '5',
+  6: '6',
+  7: '7',
+  8: '8',
+  9: '9',
 };
 
 function updateBoard(position, player) {
-  board[position] = '  ' + player + ' ';
+  board[position] = player;
 }
 
 function playerWon() {
@@ -44,26 +45,26 @@ function playerWon() {
 
 function printBoard() {
   console.log(
-    board[1] + '|' + board[2] + '|' + board[3]
+    '  ' + board[1] + '  | ' + board[2] + '  | ' + board[3]
     + '\n--------------'
-    + '\n' + board[4] + '|' + board[5] + '|' + board[6]
+    + '\n  ' + board[4] + '  | ' + board[5] + '  | ' + board[6]
     + '\n--------------'
-    + '\n' + board[7] + '|' + board[8] + '|' + board[9]
+    + '\n  ' + board[7] + '  | ' + board[8] + '  | ' + board[9]
   );
 }
 
-function rotateBoard(rotatePos, player) {
-  if (rotatePos === '90') {
-   if (board[1] !== '  1 ') {
-     if (board[2] !== '  2 ') {
-       if (board[3] !== '  3 ') {
-         board[9] = board[1];
-       } else {
-         board[8] = board[1];
-       }
-     }
-   }
-  }
+function rotateBoard() {
+  var oldBoard = Object.assign({}, board);
+  var newToOldKey = {1: 7, 2: 4, 3: 1, 4: 8, 5: 5, 6: 2, 7: 9, 8: 6, 9: 3};
+  _.forEach(board, function(position, k) {
+    var oldKey = newToOldKey[k];
+    if (oldBoard[oldKey] !== 'X' && oldBoard[oldKey] !== 'O') {
+      board[k] = k;
+    } else {
+      board[k] = oldBoard[oldKey];
+      console.log('something');
+    }
+  });
 }
 
 function game(player) {
@@ -71,7 +72,7 @@ function game(player) {
 
   prompt.get(['position'], function(err, result) {
     updateBoard(result.position, player);
-    rotateBoard('90');
+    rotateBoard();
     console.log('  user move: ' + result.position);
     // print new board
     printBoard();
@@ -91,11 +92,11 @@ function game(player) {
 }
 
 console.log( 'Start Game, Player X: \n' +
-  board[1] + '|' + board[2] + '|' + board[3]
+  '  ' + board[1] + '  | ' + board[2] + '  | ' + board[3]
   + '\n--------------'
-  + '\n' + board[4] + '|' + board[5] + '|' + board[6]
+  + '\n  ' + board[4] + '  | ' + board[5] + '  | ' + board[6]
   + '\n--------------'
-  + '\n' + board[7] + '|' + board[8] + '|' + board[9]
+  + '\n  ' + board[7] + '  | ' + board[8] + '  | ' + board[9]
 );
 
 game('X');

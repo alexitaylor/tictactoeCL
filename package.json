@@ -17,6 +17,8 @@
   },
   "homepage": "https://github.com/alexitaylor/tictactoeCL#readme",
   "dependencies": {
-    "prompt": "^1.0.0"
+    "lodash": "^4.17.4",
+    "prompt": "^1.0.0",
+    "save": "^2.3.1"
   }
 }
